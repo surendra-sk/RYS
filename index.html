@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentYourSthan - Find Your Perfect Home in India</title>
+    
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* Custom styles for gradients, glassmorphism, and animations */
+        :root {
+            --primary: #074C40; /* Dark Teal */
+            --secondary: #4ECDC4; /* Medium Teal */
+            --background: #E8F8F7; /* Very Light Mint/Teal */
+            --text: #2A4B54; /* Dark blue-green text */
+            --accent: #1B998B; /* Vibrant Teal */
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            background-color: var(--background);
+            overflow-x: hidden;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+            min-height: 100vh;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(7, 76, 64, 0.4);
+        }
+
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .scroll-animation {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .scroll-animation.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+
+        /* Sticky mobile CTA button */
+        .sticky-mobile-cta {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 50;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .sticky-mobile-cta.visible {
+            opacity: 1;
+        }
+
+        /* Testimonial carousel styles */
+        .carousel-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        .carousel-item {
+            flex: 0 0 100%;
+            scroll-snap-align: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Sticky Mobile Download Button (for small screens) -->
+    <a href="#download" class="lg:hidden sticky-mobile-cta glassmorphism p-3 rounded-full shadow-lg">
+        <i class="fas fa-download text-white text-xl"></i>
+    </a>
+
+    <!-- Sticky Navbar -->
+    <nav id="navbar" class="fixed w-full z-40 top-0 py-4 transition-all duration-300">
+        <div class="container mx-auto flex justify-between items-center px-6 md:px-12">
+            <a href="#" class="text-3xl font-bold text-white">
+                <!-- Made the logo size adaptable -->
+                <img src="https://firebasestorage.googleapis.com/v0/b/rent-your-sthan.firebasestorage.app/o/ryslogo1-removebg-preview.png?alt=media&token=d1998268-c7c1-48f3-992f-83b70873fe88" class="w-28 sm:w-32 md:w-36 lg:w-40" alt="RentYourSthan Logo">
+            </a>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="lg:hidden text-gray-800 focus:outline-none p-2 rounded-md transition-colors duration-300">
+                <i class="fas fa-bars text-white text-2xl"></i>
+            </button>
+            
+            <!-- Desktop Menu -->
+            <ul id="desktop-menu" class="hidden lg:flex items-center space-x-8 text-white">
+                <li><a href="#about" class="hover:text-gray-200 transition duration-300">About</a></li>
+                <li><a href="#features" class="hover:text-gray-200 transition duration-300">Features</a></li>
+                <li><a href="#use-cases" class="hover:text-gray-200 transition duration-300">Use Cases</a></li>
+                <li><a href="#testimonials" class="hover:text-gray-200 transition duration-300">Testimonials</a></li>
+                <li><a href="#download" class="hover:text-gray-200 transition duration-300">Download</a></li>
+                <li><a href="#contact" class="hover:text-gray-200 transition duration-300">Contact</a></li>
+                <li><a href="#" class="cta-button text-white px-5 py-2 rounded-full font-semibold shadow-lg">List Your Property</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Drawer -->
+    <div id="mobile-menu-drawer" class="fixed top-0 left-0 w-full h-full bg-white z-50 transform -translate-x-full transition-transform duration-300 lg:hidden">
+        <div class="flex justify-end p-6">
+            <button id="close-menu-btn" class="text-gray-800 focus:outline-none">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <ul class="flex flex-col items-center space-y-8 text-2xl mt-16 text-gray-800">
+            <li><a href="#about" class="hover:text-primary transition duration-300">About</a></li>
+            <li><a href="#features" class="hover:text-primary transition duration-300">Features</a></li>
+            <li><a href="#use-cases" class="hover:text-primary transition duration-300">Use Cases</a></li>
+            <li><a href="#testimonials" class="hover:text-primary transition duration-300">Testimonials</a></li>
+            <li><a href="#download" class="hover:text-primary transition duration-300">Download</a></li>
+            <li><a href="#contact" class="hover:text-primary transition duration-300">Contact</a></li>
+            <li><a href="#" class="cta-button text-white px-8 py-3 rounded-full font-semibold shadow-lg mt-8 block">List Your Property</a></li>
+        </ul>
+    </div>
+
+
+    <!-- Hero Section -->
+    <header id="hero" class="hero-gradient text-white flex items-center pt-24 pb-12">
+        <div class="container mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="text-center lg:text-left scroll-animation">
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">Find Your Next Home, Your Way.</h1>
+                <p class="mt-4 text-xl md:text-2xl font-light opacity-80">The smartest and easiest way to discover verified PGs, hostels, and apartments across India.</p>
+                <div class="mt-8 flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#download" class="cta-button text-white px-8 py-4 rounded-full text-lg font-bold shadow-lg">Download App</a>
+                    <!-- <a href="#" class="cta-button text-primary px-8 py-4 rounded-full text-lg font-bold shadow-lg transition-all duration-300 hover:bg-gray-100 hover:shadow-xl">List Your Property</a> -->
+                </div>
+            </div>
+            <div class="mt-12 lg:mt-0 flex justify-center scroll-animation">
+                <!-- App screenshot mockup placeholder -->
+                <img src="https://firebasestorage.googleapis.com/v0/b/rent-your-sthan.firebasestorage.app/o/WhatsApp%20Image%202025-07-12%20at%2000.13.28_c0940566.jpg?alt=media&token=cc12e468-d6cc-4def-90b5-887a915b8161" alt="RentYourSthan App Screenshot" class="rounded-3xl shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500 max-w-sm lg:max-w-md">
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 md:py-24">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center max-w-3xl mx-auto mb-12 scroll-animation">
+                <h2 class="text-4xl md:text-5xl font-bold">Why RentYourSthan?</h2>
+                <p class="mt-4 text-lg text-gray-600">Built for a seamless and stress-free rental experience.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature Card 1 -->
+                <div class="bg-white p-8 rounded-3xl shadow-lg feature-card scroll-animation">
+                    <div class="text-primary text-4xl mb-4">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Nearby Search</h3>
+                    <p class="text-gray-600">Discover properties near your college or office with our location-based search.</p>
+                </div>
+                <!-- Feature Card 2 -->
+                <div class="bg-white p-8 rounded-3xl shadow-lg feature-card scroll-animation">
+                    <div class="text-primary text-4xl mb-4">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Verified Listings</h3>
+                    <p class="text-gray-600">Say goodbye to fake listings. We verify every property and landlord.</p>
+                </div>
+                <!-- Feature Card 3 -->
+                <div class="bg-white p-8 rounded-3xl shadow-lg feature-card scroll-animation">
+                    <div class="text-primary text-4xl mb-4">
+                        <i class="fas fa-file-signature"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Digital Rent Agreements</h3>
+                    <p class="text-gray-600">Sign, store, and manage your rent agreements digitally, all in one place.</p>
+                </div>
+                <!-- Feature Card 4 -->
+                <div class="bg-white p-8 rounded-3xl shadow-lg feature-card scroll-animation">
+                    <div class="text-primary text-4xl mb-4">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Instant Watchlist Alerts</h3>
+                    <p class="text-gray-600">Get notified instantly when a new property matching your criteria becomes available.</p>
+                </div>
+                <!-- Feature Card 5 -->
+                <div class="bg-white p-8 rounded-3xl shadow-lg feature-card scroll-animation">
+                    <div class="text-primary text-4xl mb-4">
+                        <i class="fas fa-rupee-sign"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">UPI Rent Payment</h3>
+                    <p class="text-gray-600">Pay your rent securely and instantly with your preferred UPI app.</p>
+                </div>
+                <!-- Feature Card 6 -->
+                <div class="bg-white p-8 rounded-3xl shadow-lg feature-card scroll-animation">
+                    <div class="text-primary text-4xl mb-4">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Rent Calculator</h3>
+                    <p class="text-gray-600">Easily calculate your total monthly expenses, including utilities and deposits.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section id="use-cases" class="py-16 md:py-24 bg-gray-100">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center max-w-3xl mx-auto mb-12 scroll-animation">
+                <h2 class="text-4xl md:text-5xl font-bold">Who is RentYourSthan for?</h2>
+                <p class="mt-4 text-lg text-gray-600">Our platform is designed for everyone in the rental ecosystem.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Use Case Card 1 -->
+                <div class="bg-white p-8 rounded-3xl shadow-lg scroll-animation">
+                    <div class="text-primary text-4xl mb-4">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">For Tenants</h3>
+                    <p class="text-gray-600">Browse thousands of verified listings, book a visit, and finalize your next home with confidence.</p>
+                </div>
+                <!-- Use Case Card 2 -->
+                <div class="bg-white p-8 rounded-3xl shadow-lg scroll-animation">
+                    <div class="text-primary text-4xl mb-4">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">For Landlords</h3>
+                    <p class="text-gray-600">List your property for free, connect with verified tenants, and manage your rentals effortlessly.</p>
+                </div>
+                <!-- Use Case Card 3 -->
+                <div class="bg-white p-8 rounded-3xl shadow-lg scroll-animation">
+                    <div class="text-primary text-4xl mb-4">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">For Students</h3>
+                    <p class="text-gray-600">Find the perfect PG or hostel near your college, with all amenities and roommates you'll love.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-16 md:py-24">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center max-w-3xl mx-auto mb-12 scroll-animation">
+                <h2 class="text-4xl md:text-5xl font-bold">What Our Users Say</h2>
+                <p class="mt-4 text-lg text-gray-600">Hear from our community of happy tenants and landlords.</p>
+            </div>
+            
+            <div class="relative max-w-4xl mx-auto">
+                <div class="carousel-container overflow-hidden rounded-3xl shadow-xl">
+                    <!-- Testimonial 1 -->
+                    <div class="carousel-item p-8 bg-white glassmorphism flex-shrink-0">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <img src="https://placehold.co/60x60/4ECDC4/FFFFFF?text=PS" alt="Priya Sharma" class="w-16 h-16 rounded-full object-cover">
+                            <div>
+                                <p class="font-semibold text-lg">Priya Sharma</p>
+                                <p class="text-sm text-gray-500">Working Professional</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 italic">"I found the perfect apartment in Bengaluru within a week. The verified listings feature saved me so much time and stress! Highly recommended."</p>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="carousel-item p-8 bg-white glassmorphism flex-shrink-0">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <img src="https://placehold.co/60x60/074C40/FFFFFF?text=RK" alt="Rajesh Kumar" class="w-16 h-16 rounded-full object-cover">
+                            <div>
+                                <p class="font-semibold text-lg">Rajesh Kumar</p>
+                                <p class="text-sm text-gray-500">Landlord</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 italic">"Listing my flat on RentYourSthan was so simple. The digital rent agreement feature is a game changer for managing my properties. A fantastic platform!"</p>
+                    </div>
+                    <!-- Testimonial 3 -->
+                    <div class="carousel-item p-8 bg-white glassmorphism flex-shrink-0">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <img src="https://placehold.co/60x60/1B998B/FFFFFF?text=AS" alt="Arjun Singh" class="w-16 h-16 rounded-full object-cover">
+                            <div>
+                                <p class="font-semibold text-lg">Arjun Singh</p>
+                                <p class="text-sm text-gray-500">Student</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 italic">"As a student, finding a PG was a headache. This app made it so easy to find one near my campus with all the amenities I needed."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="py-16 md:py-24 bg-gray-100">
+        <div class="container mx-auto px-6 md:px-12 text-center max-w-4xl scroll-animation">
+            <h2 class="text-4xl md:text-5xl font-bold">Ready to Find Your Dream Home?</h2>
+            <p class="mt-4 text-lg text-gray-600">Download the RentYourSthan app and start your journey today!</p>
+            <div class="mt-8 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <!-- Google Play Button -->
+                <a href="#" class="cta-button text-white px-8 py-4 rounded-full text-lg font-bold shadow-lg">
+                    <i class="fab fa-google-play mr-2"></i> Download on Google Play
+                </a>
+                <!-- App Store Placeholder -->
+                <a href="#" class="bg-gray-800 text-white px-8 py-4 rounded-full text-lg font-bold shadow-lg opacity-50 cursor-not-allowed">
+                    <i class="fab fa-apple mr-2"></i> Coming Soon on App Store
+                </a>
+            </div>
+            
+            <div class="mt-12 flex justify-center">
+                <img src="https://placehold.co/400x300/4ECDC4/FFFFFF?text=QR+Code" alt="QR Code for App Download" class="rounded-xl shadow-lg">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 md:py-24">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center max-w-3xl mx-auto mb-12 scroll-animation">
+                <h2 class="text-4xl md:text-5xl font-bold">Get in Touch</h2>
+                <p class="mt-4 text-lg text-gray-600">Have a question or want to partner with us? We'd love to hear from you!</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div class="bg-white p-8 rounded-3xl shadow-lg scroll-animation">
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700">Your Name</label>
+                            <input type="text" id="name" name="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary px-4 py-2">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                            <input type="email" id="email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary px-4 py-2">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                            <textarea id="message" name="message" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary px-4 py-2"></textarea>
+                        </div>
+                        <button type="submit" class="cta-button text-white px-8 py-3 rounded-full font-bold w-full shadow-lg">Send Message</button>
+                    </form>
+                </div>
+                
+                <!-- Google Map Embed -->
+                <div class="bg-white p-8 rounded-3xl shadow-lg scroll-animation">
+                    <h3 class="text-2xl font-bold mb-4">Our Office Location</h3>
+                    <p class="text-gray-600 mb-4">Visit us at our headquarters in Jaipur.</p>
+                    <div class="w-full h-80 rounded-2xl overflow-hidden">
+                        <!-- Replace with your actual Google Maps embed iframe -->
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.182436214561!2d75.76635831502444!3d26.86241358314169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db421d8b63e8d%3A0x86d061c4c1a704e6!2sJaipur%2C%20Rajasthan%2C%20India!5e0!3m2!1sen!2sin!4v1625828476239!5m2!1sen!2sin"
+                            width="100%"
+                            height="100%"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+            <div>
+                <h3 class="text-xl font-bold mb-4">RentYourSthan</h3>
+                <p class="text-gray-400">The smartest way to find your next home.</p>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">About Us</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Privacy Policy</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold mb-4">Follow Us</h3>
+                <div class="flex justify-center md:justify-start space-x-4">
+                    <a href="#" class="text-2xl text-gray-400 hover:text-white transition duration-300"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-2xl text-gray-400 hover:text-white transition duration-300"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-2xl text-gray-400 hover:text-white transition duration-300"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-2xl text-gray-400 hover:text-white transition duration-300"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-8 text-gray-500 border-t border-gray-700 pt-8">
+            <p>&copy; 2024 RentYourSthan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth Scroll & Navbar behavior
+            const navbar = document.getElementById('navbar');
+            const mobileCta = document.querySelector('.sticky-mobile-cta');
+            
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const closeMenuBtn = document.getElementById('close-menu-btn');
+            const mobileMenuDrawer = document.getElementById('mobile-menu-drawer');
+            
+            // Toggle mobile menu only if elements exist
+            if (mobileMenuBtn && mobileMenuDrawer) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mobileMenuDrawer.classList.remove('-translate-x-full');
+                });
+            }
+            if (closeMenuBtn && mobileMenuDrawer) {
+                closeMenuBtn.addEventListener('click', () => {
+                    mobileMenuDrawer.classList.add('-translate-x-full');
+                });
+            }
+
+            // Close mobile menu when a link is clicked, only if the drawer exists
+            if (mobileMenuDrawer) {
+                const mobileMenuLinks = mobileMenuDrawer.querySelectorAll('a');
+                mobileMenuLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenuDrawer.classList.add('-translate-x-full');
+                    });
+                });
+            }
+
+            // Scroll event listener for navbar and sticky CTA
+            window.addEventListener('scroll', () => {
+                const isScrolled = window.scrollY > 50;
+                
+                if (navbar) {
+                    if (isScrolled) {
+                        navbar.classList.add('bg-white', 'glassmorphism', 'shadow-lg');
+                        navbar.classList.remove('bg-transparent');
+                    } else {
+                        navbar.classList.remove('bg-white', 'glassmorphism', 'shadow-lg');
+                        navbar.classList.add('bg-transparent');
+                    }
+                }
+                
+                if (mobileCta) {
+                    if (isScrolled) {
+                        mobileCta.classList.add('visible');
+                    } else {
+                        mobileCta.classList.remove('visible');
+                    }
+                }
+
+                if (mobileMenuBtn) {
+                    const icon = mobileMenuBtn.querySelector('i');
+                    if (icon) {
+                        if (isScrolled) {
+                            icon.classList.remove('text-white');
+                            icon.classList.add('text-gray-800');
+                        } else {
+                            icon.classList.remove('text-gray-800');
+                            icon.classList.add('text-white');
+                        }
+                    }
+                }
+            });
+
+            // Scroll animations with Intersection Observer
+            const sections = document.querySelectorAll('.scroll-animation');
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+
+</body>
+</html>
