@@ -5,24 +5,29 @@
 <title>Redirecting...</title>
 <script>
 (function() {
-  var path = window.location.pathname + window.location.search;
-  
-  // If it's root path, just go home
-  if (path === "/" || path === "") {
-    window.location.href = "https://rentyoursthan.in";
-    return;
-  }
+    // Current path & query
+    const fullPath = window.location.pathname + window.location.search;
 
-  // Construct the intent URL to open your app
-  var intentUrl = "intent://" + path.replace(/^\//, "") + "#Intent;scheme=https;package=com.mycompany.rentyoursthan;end";
+    // Try opening the app
+    const appLink = "https://rentyoursthan.in" + fullPath;
+    const fallback = "https://play.google.com/store/apps/details?id=com.mycompany.rentyoursthan";
 
-  // Try opening the app
-  window.location = intentUrl;
-
-  // After a short delay, fallback to Play Store
-  setTimeout(function() {
-    window.location.href = "https://play.google.com/store/apps/details?id=com.mycompany.rentyoursthan";
-  }, 2000);
+    // On Android Chrome: use intent:// for faster open
+    if (/Android/i.test(navigator.userAgent)) {
+        window.location.href = 
+            "intent://" + fullPath.substring(1) + "#Intent;scheme=https;package=com.mycompany.rentyoursthan;S.browser_fallback_url=" +
+            encodeURIComponent(fallback) + ";end";
+    } 
+    // iOS & others: use delay + fallback
+    else {
+        const now = Date.now();
+        window.location = appLink;
+        setTimeout(function() {
+            if (Date.now() - now < 1500) {
+                window.location = fallback;
+            }
+        }, 1000);
+    }
 })();
 </script>
 </head>
