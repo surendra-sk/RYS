@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rentyoursthan - Find Your Perfect Rental</title>
+    <!-- Tailwind CSS CDN for modern, responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .bg-pattern-hero {
+            background-image: linear-gradient(to bottom, rgba(59, 130, 246, 0.9), rgba(59, 130, 246, 0.7)), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%2310B981' fill-opacity='1' d='M0,160L48,176C96,192,192,224,288,218.7C384,213,480,171,576,144C672,117,768,107,864,138.7C960,171,1056,245,1152,256C1248,267,1344,213,1392,186.7L1440,160L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: bottom;
+        }
+        .gradient-text {
+            background-image: linear-gradient(to right, #10B981, #3B82F6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card-hover-effect {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+        }
+        .animate-fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .animate-fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .animate-slide-in {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .animate-slide-in.is-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .animate-breathing-icon {
+            animation: breathe 3s infinite ease-in-out;
+        }
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 bg-white shadow-lg z-50">
+        <nav class="container mx-auto p-4 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-2">
+                <span class="text-3xl font-extrabold gradient-text">Rentyoursthan</span>
+            </a>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="#about" class="text-gray-600 hover:text-blue-600 transition duration-300">About</a>
+                <a href="#features" class="text-gray-600 hover:text-blue-600 transition duration-300">Features</a>
+                <a href="#how-it-works" class="text-gray-600 hover:text-blue-600 transition duration-300">How It Works</a>
+                <a href="#download" class="bg-blue-600 text-white px-6 py-2 rounded-full shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105">Download App</a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-16 left-0 right-0 bg-white shadow-lg p-4 transition-all duration-300 ease-in-out">
+            <a href="#about" class="block py-2 text-gray-800 hover:bg-gray-100 rounded px-4">About</a>
+            <a href="#features" class="block py-2 text-gray-800 hover:bg-gray-100 rounded px-4">Features</a>
+            <a href="#how-it-works" class="block py-2 text-gray-800 hover:bg-gray-100 rounded px-4">How It Works</a>
+            <a href="#download" class="block py-2 mt-2 text-center bg-blue-600 text-white rounded-full hover:bg-blue-700 transition duration-300">Download App</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="text-white text-center py-24 px-4 relative overflow-hidden bg-pattern-hero">
+            <div class="container mx-auto max-w-4xl z-10 relative animate-fade-in">
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight drop-shadow-md">
+                    Finding a Home, <br>Made <span class="text-emerald-300">Simple.</span>
+                </h1>
+                <p class="mt-4 text-lg md:text-xl font-light opacity-90 drop-shadow-sm">
+                    Rentyoursthan is the new way to find rental properties in India. We're turning 'To-Let' boards into verified digital listings on a dynamic map.
+                </p>
+                <div class="mt-10 flex justify-center space-x-4">
+                    <a href="#download" class="bg-white text-blue-600 font-bold py-4 px-10 rounded-full shadow-2xl hover:bg-gray-100 transition duration-300 transform hover:scale-105 text-lg">
+                        Download Now
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="py-20 px-4">
+            <div class="container mx-auto max-w-4xl text-center animate-fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold">The Problem We Solve</h2>
+                <p class="mt-4 text-gray-600 text-lg max-w-2xl mx-auto">
+                    In India, finding a rental property often means walking around, looking for hand-painted 'To-Let' signs, and calling unverified phone numbers. This process is time-consuming, inefficient, and prone to scams. We're here to change that.
+                </p>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-20 px-4 bg-gray-100">
+            <div class="container mx-auto max-w-6xl">
+                <h2 class="text-3xl md:text-4xl font-bold text-center">How We Make It Better</h2>
+                <p class="mt-4 text-gray-600 text-center mb-16 max-w-2xl mx-auto">
+                    Our unique approach combines community power with smart technology to provide a seamless and trustworthy experience.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <!-- Feature Card 1 -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg card-hover-effect transition duration-300 animate-fade-in">
+                        <div class="text-blue-500 mb-4 animate-breathing-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5A5.5 5.5 0 017.5 3c2.09 0 3.86 1.05 4.5 2.5.64-1.45 2.41-2.5 4.5-2.5A5.5 5.5 0 0122 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold">Dynamic Map Listings</h3>
+                        <p class="mt-2 text-gray-600">
+                            See all available rentals on an interactive map. Pinpoint the exact location of properties near you, updated in real-time.
+                        </p>
+                    </div>
+                    <!-- Feature Card 2 -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg card-hover-effect transition duration-300 animate-fade-in" style="transition-delay: 0.2s;">
+                        <div class="text-green-500 mb-4 animate-breathing-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 12l2 2 4-4m5.618-4.21a2 2 0 010 2.828l-5.618 5.618a2 2 0 01-2.828 0l-5.618-5.618a2 2 0 010-2.828l5.618-5.618a2 2 0 012.828 0l5.618 5.618z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold">Verified & Genuine Posts</h3>
+                        <p class="mt-2 text-gray-600">
+                            We use live location verification and contributor reputation systems to ensure minimum fake posts, giving you peace of mind.
+                        </p>
+                    </div>
+                    <!-- Feature Card 3 -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg card-hover-effect transition duration-300 animate-fade-in" style="transition-delay: 0.4s;">
+                        <div class="text-purple-500 mb-4 animate-breathing-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 11c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 13c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm0-10a5 5 0 00-5 5c0 2.76 2.24 5 5 5s5-2.24 5-5-2.24-5-5-5z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold">Community-Driven</h3>
+                        <p class="mt-2 text-gray-600">
+                            Anyone can post a rental property, helping the entire community find a home faster. A simple reporting feature keeps data clean.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="py-20 px-4">
+            <div class="container mx-auto max-w-4xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold">How It Works</h2>
+                <div class="mt-16 space-y-12">
+                    <div class="flex flex-col md:flex-row items-center md:space-x-8 animate-slide-in">
+                        <div class="flex-shrink-0 mb-4 md:mb-0">
+                            <div class="h-16 w-16 bg-blue-500 text-white rounded-full flex items-center justify-center text-xl font-bold">1</div>
+                        </div>
+                        <div class="text-left md:text-left">
+                            <h3 class="text-2xl font-semibold">Post a Property in Minutes</h3>
+                            <p class="mt-2 text-gray-600">
+                                See a 'To-Let' board? Open the Rentyoursthan app, take a picture of the board, and our smart system will automatically fill in the details with location and price.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col md:flex-row items-center md:space-x-8 animate-slide-in" style="transition-delay: 0.2s;">
+                        <div class="flex-shrink-0 mb-4 md:mb-0">
+                            <div class="h-16 w-16 bg-green-500 text-white rounded-full flex items-center justify-center text-xl font-bold">2</div>
+                        </div>
+                        <div class="text-left md:text-left">
+                            <h3 class="text-2xl font-semibold">Instant Map View</h3>
+                            <p class="mt-2 text-gray-600">
+                                The posted property appears instantly on a dynamic map, making it visible to everyone looking for a rental in that area.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col md:flex-row items-center md:space-x-8 animate-slide-in" style="transition-delay: 0.4s;">
+                        <div class="flex-shrink-0 mb-4 md:mb-0">
+                            <div class="h-16 w-16 bg-purple-500 text-white rounded-full flex items-center justify-center text-xl font-bold">3</div>
+                        </div>
+                        <div class="text-left md:text-left">
+                            <h3 class="text-2xl font-semibold">Find & Go</h3>
+                            <p class="mt-2 text-gray-600">
+                                Users can easily search for properties near them, get the exact location, and go directly to the spot without the hassle of endless searching.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Download CTA Section -->
+        <section id="download" class="bg-blue-600 text-white py-24 px-4 mt-20 text-center bg-pattern-hero">
+            <div class="container mx-auto max-w-3xl animate-fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold drop-shadow-md">Ready to Simplify Your Rent Search?</h2>
+                <p class="mt-4 text-lg md:text-xl font-light opacity-90 drop-shadow-sm">
+                    Join the community and find your perfect home the smart way.
+                </p>
+                <div class="mt-10 flex justify-center space-x-4">
+                    <a href="#" class="bg-white text-blue-600 font-bold py-4 px-10 rounded-full shadow-lg hover:bg-gray-100 transition duration-300 transform hover:scale-105 text-lg">
+                        Download App
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-10 px-4 text-center">
+        <div class="container mx-auto">
+            <p>&copy; <span id="current-year"></span> Rentyoursthan. All rights reserved.</p>
+            <div class="mt-4 space-x-4">
+                <a href="#about" class="hover:text-white transition duration-300">About</a>
+                <a href="#features" class="hover:text-white transition duration-300">Features</a>
+                <a href="#how-it-works" class="hover:text-white transition duration-300">How it Works</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for dynamic year, mobile menu, and scroll animations -->
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animate-fade-in, .animate-slide-in').forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>
