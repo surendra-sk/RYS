@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.mycompany.rentyoursthan",
+      "sha256_cert_fingerprints": [
+        "FE:BE:F7:65:4B:F9:2D:2F:CF:F2:67:E2:26:12:27:0A:8F:8C:F5:75:46:49:8C:6D:F0:99:94:1C:27:2F:E4:10"
+      ]
+    }
+  }
+]
